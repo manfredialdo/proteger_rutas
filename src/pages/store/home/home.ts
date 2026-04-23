@@ -1,0 +1,1 @@
+// lógica: render, búsqueda, filtros

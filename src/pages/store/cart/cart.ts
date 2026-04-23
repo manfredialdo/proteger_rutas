@@ -1,0 +1,1 @@
+// lógica: render, cantidades, total
