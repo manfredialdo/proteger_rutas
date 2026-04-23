@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Store</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Food Store</h1>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Mis Pedidos</a>
+            <a href="#">Carrito</a>
+            <a href="admin.html">Panel Admin</a>
+        </nav>
+    </header>
+
+    <aside>
+        <h2>Categorías</h2>
+        <ul id="lista-categorias"></ul>
+    </aside>
+
+    <main>
+        <form id="form-busqueda">
+            <input type="text" id="input-busqueda" required placeholder="Buscar productos..." maxlength="50" pattern="^[a-zA-Z0-9 ñÑáéíóúÁÉÍÓÚ]+$" title="Solo letras y números">
+            <button type="submit">Buscar</button>
+        </form>
+        <h2>Productos Destacados</h2>
+        <section id="contenedor-productos"></section>
+    </main>
+
+    <footer>
+        <p>© 2024 Food Store. Todos los derechos reservados.</p>
+        <p>Contacto: info@foodstore.com</p>
+    </footer>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
