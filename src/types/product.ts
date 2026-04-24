@@ -14,7 +14,7 @@ export interface Product {
   stock: number;
   imagen: string;
   disponible: boolean;
-  categorias: ICategory[]; 
+  categorias: Icategoria[]; 
   createdAt: string;
   eliminado: boolean;
 }
