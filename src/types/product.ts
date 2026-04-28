@@ -1,14 +1,9 @@
 //  interfaces Product y CartItem
-// src/types/product.ts
 import type { Icategoria } from "./categoria";
 
-/**
- * Interfaz principal para los productos del catálogo.
- * Basada en la estructura de data.ts
- */
 export interface Product {
   id: number;
-  nombre: string;
+  nombre: string;     // Obligatorio para data.ts
   precio: number;
   descripcion: string;
   stock: number;
@@ -17,12 +12,9 @@ export interface Product {
   categorias: Icategoria[]; 
   createdAt: string;
   eliminado: boolean;
+  title?: string;     // Opcional para tu código
+  alt?: string;
 }
-
-/**
- * Interfaz para los elementos del carrito.
- * Extiende Product agregando la propiedad de cantidad.
- */
 export interface CartItem extends Product {
   quantity: number; 
 }

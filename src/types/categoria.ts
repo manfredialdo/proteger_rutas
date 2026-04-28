@@ -1,8 +1,8 @@
 // interface Icategoria
 export interface Icategoria {
-    id: number;
-    eliminado: boolean;
-    createdAt: string;
-    nombre: string;
-    descripcion: string;
-  }
+  id: number;
+  nombre: string;     
+  eliminado: boolean;
+  createdAt: string;
+  descripcion: string;
+}
