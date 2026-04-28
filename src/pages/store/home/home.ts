@@ -45,7 +45,7 @@ const cargarCategorias = (productos: IProduct[]): void => {
 };
 
 /**
- * Tu procedimiento mostrarMenu adaptado para no romperse
+ * Procedimiento mostrarMenu adaptado para no romperse
  */
 const mostrarMenu = (datos: IProduct[]): void => {
     const contenedor = document.getElementById("contenedor-productos") as HTMLElement;
@@ -58,9 +58,9 @@ const mostrarMenu = (datos: IProduct[]): void => {
         tarjeta.className = "tarjeta";
 
         const img = document.createElement("img");
-        // USAMOS p.imagen que es lo que tiene el profe
-        img.src = p.imagen || "pizza.jpg"; 
-        // USAMOS p.nombre porque p.title NO EXISTE en el data.ts del profe
+        // USAMOS p.imagen 
+        img.src = `/${p.imagen}`; 
+        // USAMOS p.nombre porque p.title NO EXISTE en el data.ts 
         img.alt = p.nombre; 
         
         const h3 = document.createElement("h3");
