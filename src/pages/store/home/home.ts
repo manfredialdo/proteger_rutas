@@ -52,34 +52,53 @@ const mostrarMenu = (datos: IProduct[]): void => {
     if (!contenedor) return;
 
     contenedor.replaceChildren();
-
+        
     datos.forEach((p) => {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta";
-
+    
+        // 1. Imagen
         const img = document.createElement("img");
-        // USAMOS p.imagen 
-        img.src = `/${p.imagen}`; 
-        // USAMOS p.nombre porque p.title NO EXISTE en el data.ts 
-        img.alt = p.nombre; 
-        
+        img.src = `/${p.imagen}`;
+        img.alt = p.nombre;
+        img.className = "tarjeta-img";
+    
+        // 2. Categoría (Estilo pequeño arriba)
+        const pCat = document.createElement("p");
+        pCat.className = "tarjeta-categoria";
+        pCat.textContent = p.categorias?.[0]?.nombre.toUpperCase() || "PRODUCTO";
+    
+        // 3. Título
         const h3 = document.createElement("h3");
-        h3.textContent = p.nombre; // Cambiado de p.title a p.nombre
-
+        h3.className = "tarjeta-titulo";
+        h3.textContent = p.nombre;
+    
+        // 4. Descripción
         const pDesc = document.createElement("p");
+        pDesc.className = "tarjeta-descripcion";
         pDesc.textContent = p.descripcion;
-
-        const pPrecio = document.createElement("p");
-        pPrecio.innerHTML = `<strong>$${p.precio}</strong>`;
-
+    
+        // 5. Footer (Precio + Botón)
+        const divFooter = document.createElement("div");
+        divFooter.className = "tarjeta-footer";
+    
+        const spanPrecio = document.createElement("span");
+        spanPrecio.className = "tarjeta-precio";
+        spanPrecio.textContent = `$${p.precio}`;
+    
         const btn = document.createElement("button");
         btn.className = "btn-agregar";
-        btn.textContent = "Agregar";
-        btn.dataset.nombre = p.nombre; // Cambiado de p.title a p.nombre
-
-        tarjeta.append(img, h3, pDesc, pPrecio, btn);
+        btn.innerHTML = `<span>+</span> Agregar`; // El símbolo + de tu captura
+        btn.dataset.id = p.id.toString();
+    
+        divFooter.append(spanPrecio, btn);
+    
+        // Armado final de la tarjeta
+        tarjeta.append(img, pCat, h3, pDesc, divFooter);
         contenedor.append(tarjeta);
     });
+
+
 };
 
 // Delegación de Eventos
