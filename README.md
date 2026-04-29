@@ -51,17 +51,26 @@ La aplicación estará disponible en la URL que aparezca en la terminal (general
 
 ---
 
-## ⚙️ ¿Cómo Funciona la Protección de Rutas?
+## 🛒 ¿Cómo Funciona la Gestión del Carrito?
 
-El mecanismo es simple y se gestiona desde el código TypeScript en la carpeta `src/utils`:
+El flujo de compra es reactivo y utiliza la API de `localStorage` para garantizar la persistencia de datos de forma eficiente:
 
-1.  **Inicio de Sesión**: Cuando un usuario se "loguea", su información (incluido su rol) se guarda como un string JSON en `localStorage`.
-2.  **Carga de Página Protegida**: Cada vez que se intenta cargar una página protegida (ej. la página de Administrador), se ejecuta un script de verificación (`checkAuhtUser` en `src/utils/auth.ts`).
-3.  **Verificación**: El script comprueba:
-    - Si existe un usuario en `localStorage`. Si no, redirige al login.
-    - Si el rol del usuario guardado coincide con el rol requerido para acceder a esa página. Si no coincide, lo redirige a una página de acceso denegado o a su "home" correspondiente.
-4.  **Cierre de Sesión (Logout)**: Al cerrar sesión, la información del usuario se elimina de `localStorage`.
+1. **Captura**: Al disparar el evento de clic en "Agregar", el sistema extrae el `ID` del producto mediante el atributo `data-id` del elemento HTML.
+2. **Persistencia**:
+   * Se recupera el estado actual mediante la función `getCarrito()`.
+   * **Lógica de Acumulación**: Si el `ID` ya existe en el storage, se incrementa su propiedad `cantidad`. De lo contrario, se inicializa como un nuevo ítem.
+   * El array resultante se serializa a JSON y se almacena nuevamente en `localStorage`.
+3. **Renderizado Dinámico**: La vista de **"Mis Pedidos"** mapea el contenido del storage para generar las tarjetas mediante la manipulación segura del DOM (`createElement`), evitando el uso de `innerHTML`.
+4. **Cálculo de Importes**: Se procesa cada subtotal (`precioUnidad * cantidad`) y se utiliza un acumulador para proyectar el **Total Final** en tiempo real.
+5. **Sincronización**: Cualquier interacción con los controles de cantidad o eliminación de ítems actualiza el storage y fuerza un re-renderizado inmediato de la interfaz.
 
+---
+
+### 📋 Historias de Usuario (Pruebas de Validación)
+
+* **HU-P1-03 (Agregar)**: El producto se persiste en el storage y gestiona correctamente el incremento de cantidades ante duplicados.
+* **HU-P1-04 (Visualizar)**: Los datos de nombre, precio y cantidad se listan correctamente en la página de pedidos.
+* **HU-P1-05 (Total)**: El total general de la compra se recalcula automáticamente ante cualquier modificación del carrito.
 ---
 
 ## 📁 Estructura del Proyecto
