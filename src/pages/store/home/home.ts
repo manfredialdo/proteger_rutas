@@ -1,6 +1,7 @@
 // lógica: render, búsqueda, filtros
 import type { Product as IProduct } from "../../../types/product";
 import type { Icategoria as ICategory } from "../../../types/categoria";
+import { agregarProductoAlCarrito } from "../../../utils/localStorage";
 
 // 2. Datos (sin el .ts al final)
 import { PRODUCTS } from "../../../data/data";
@@ -101,14 +102,33 @@ const mostrarMenu = (datos: IProduct[]): void => {
 };
 
 // Delegación de Eventos
+// Delegación de Eventos
 document.addEventListener("click", (e: MouseEvent) => {
     const el = e.target as HTMLElement;
 
-    if (el.classList.contains("btn-agregar")) {
-        alert(`Producto añadido: ${el.dataset.nombre}`);
+    // 1. Lógica para Agregar al Carrito
+    // Usamos closest por si el usuario toca el icono "+" dentro del botón
+    const btnAgregar = el.closest(".btn-agregar") as HTMLButtonElement;
+    
+    if (btnAgregar) {
+        const id = Number(btnAgregar.dataset.id);
+        
+        // Buscamos el objeto completo en el array de productos
+        const productoParaAgregar = PRODUCTS.find(p => p.id === id);
+
+        if (productoParaAgregar) {
+            // Guardamos en LocalStorage (la función que hicimos en el otro archivo)
+            agregarProductoAlCarrito(productoParaAgregar);
+            
+            // Avisamos al usuario
+            alert(`Producto añadido: ${productoParaAgregar.nombre}`);
+        }
     }
     
-    const filtroId = el.closest("a")?.dataset.id;
+    // 2. Lógica para Filtros de Categorías
+    const enlaceFiltro = el.closest("a");
+    const filtroId = enlaceFiltro?.dataset.id;
+    
     if (filtroId) {
         e.preventDefault();
         
