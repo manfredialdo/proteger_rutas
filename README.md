@@ -1,12 +1,24 @@
-# Proyecto: Protección de Rutas (Educativo)
+#  PARCIAL 1 PROGRAMACION 3 Proyecto: Carrito + Protección de Rutas (Educativo) 
 
 ## ✍️ Descripción
+En el parcial 1 se solicita:
+1. Carrito básico con persistencia. Implementar un carrito de compras utilizando localStorage que permita:
+   ● Agregar productos desde el catálogo
+   ● Visualizar los productos agregados en una vista de carrito
+   ● Mostrar nombre, precio y cantidad de cada producto
+   ● Calcular y mostrar el total de la compra
 
-Este es un proyecto de demostración creado con fines educativos para ilustrar un mecanismo básico de protección de rutas en el lado del cliente (frontend) utilizando **Vite** y **TypeScript**.
+2. Búsqueda y filtrado de productos
+   Incorporar funcionalidades de interacción sobre el catálogo:
+   ● Búsqueda de productos por nombre
+   ● Filtrado por categoría (desde el menú lateral o equivalente)
 
-El objetivo es mostrar cómo se puede restringir el acceso a ciertas páginas según el rol de un usuario (por ejemplo, `ADMIN` o `CLIENT`).
+Vale decir, por otro lado q el presente proyecto es una continuacion trabajo practico 4 (typescript, unidad 4) que es una demostración creado con fines educativos para ilustrar un mecanismo básico de protección de rutas en el lado del cliente (frontend) utilizando **Vite** y **TypeScript**. El objetivo por fue mostrar cómo se puede restringir el acceso a ciertas páginas según el rol de un usuario (por ejemplo, `ADMIN` o `CLIENT`).
 
 ---
+## ✍️ Descripción
+En el presente proyecto se implementa como demostración educativa para ilustrar la implementación de un carrito de compras funcional en el lado del cliente (frontend). El objetivo principal es mostrar cómo gestionar el estado de los productos seleccionados y garantizar la persistencia de datos utilizando el localStorage del navegador.
+
 
 ## ⚠️ ¡Importante! Nivel de Seguridad
 
