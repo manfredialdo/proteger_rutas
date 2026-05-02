@@ -33,14 +33,25 @@ Este enfoque es útil únicamente para fines de aprendizaje y para prototipos de
 
 ## 🚀 Instalación y Uso
 
-Se recomienda usar `pnpm` como gestor de paquetes para mayor eficiencia en el manejo de dependencias.
+### 0. Clonamos el proyecto 
 
-### 1. Instalar pnpm
+```bash
+git clone https://github.com/manfredialdo/FoodStoreParcial1.git
+```
+
+### 1. Navega hacia la carpeta principal del frontend donde reside el proyecto Vite
+
+```bash
+cd FoodStoreParcial1
+```
+
+
+### 2. Instalar pnpm
 
 Si no tienes `pnpm` instalado, puedes hacerlo fácilmente a través de `npm` (que viene con Node.js) ejecutando el siguiente comando en tu terminal:
 
 ```bash
-npm install -g pnpm
+npm install pnpm
 ```
 
 ### 2. Instalar Dependencias del Proyecto
@@ -59,7 +70,9 @@ Para iniciar el servidor de desarrollo de Vite, ejecuta:
 pnpm dev
 ```
 
+
 La aplicación estará disponible en la URL que aparezca en la terminal (generalmente `http://localhost:5173`).
+
 
 ---
 
@@ -68,12 +81,16 @@ La aplicación estará disponible en la URL que aparezca en la terminal (general
 El flujo de compra es reactivo y utiliza la API de `localStorage` para garantizar la persistencia de datos de forma eficiente:
 
 1. **Captura**: Al disparar el evento de clic en "Agregar", el sistema extrae el `ID` del producto mediante el atributo `data-id` del elemento HTML.
+
 2. **Persistencia**:
    * Se recupera el estado actual mediante la función `getCarrito()`.
    * **Lógica de Acumulación**: Si el `ID` ya existe en el storage, se incrementa su propiedad `cantidad`. De lo contrario, se inicializa como un nuevo ítem.
    * El array resultante se serializa a JSON y se almacena nuevamente en `localStorage`.
-3. **Renderizado Dinámico**: La vista de **"Mis Pedidos"** mapea el contenido del storage para generar las tarjetas mediante la manipulación segura del DOM (`createElement`), evitando el uso de `innerHTML`.
+
+3. **Renderizado Dinámico**: La vista de **"Mis Pedidos"** mapea el contenido del storage para generar las tarjetas mediante la manipulación segura del DOM (`createElement`)
+
 4. **Cálculo de Importes**: Se procesa cada subtotal (`precioUnidad * cantidad`) y se utiliza un acumulador para proyectar el **Total Final** en tiempo real.
+
 5. **Sincronización**: Cualquier interacción con los controles de cantidad o eliminación de ítems actualiza el storage y fuerza un re-renderizado inmediato de la interfaz.
 
 ---
@@ -92,25 +109,25 @@ El flujo de compra es reactivo y utiliza la API de `localStorage` para garantiza
 /
 ├── src/
 │   ├── data/
-│   │   └── data.ts              # Fuente de datos: PRODUCTS y getCategories()
+│   │   └── data.ts              # parcial1: Fuente de datos: PRODUCTS y getCategories()
 │   ├── pages/
-│   │   ├── admin/               # Vistas y lógica exclusivas para administradores
-│   │   ├── auth/                # Gestión de autenticación (Login, Registro)
-│   │   ├── client/              # Vistas privadas para clientes registrados
-│   │   └── store/               # Módulos públicos de la tienda
+│   │   ├── admin/               # tp4: Vistas y lógica exclusivas para administradores
+│   │   ├── auth/                # tp4: Gestión de autenticación (Login, Registro)
+│   │   ├── client/              # tp4: Vistas privadas para clientes registrados
+│   │   └── store/               # parcial1: Módulos públicos de la tienda
 │   │       ├── home/
-│   │       │   ├── home.html    # Maquetación del catálogo de productos
-│   │       │   └── home.ts      # Lógica: renderizado, búsqueda y filtros
+│   │       │   ├── home.html    # tp4: Maquetación del catálogo de productos
+│   │       │   └── home.ts      # tp4: Lógica: renderizado, búsqueda y filtros
 │   │       └── cart/
-│   │           ├── cart.html    # Vista del carrito de compras
-│   │           └── cart.ts      # Lógica: gestión de cantidades, totales y pedidos
-│   ├── types/                   # Definición de interfaces y tipos globales
-│   │   ├── product.ts           # Interfaces Product y CartItem
-│   │   ├── categoria.ts         # Interface ICategoria
-│   │   └── user.ts              # Interfaces IUser y Rol
+│   │           ├── cart.html    # parcial1: Vista del carrito de compras
+│   │           └── cart.ts      # parcial1: Lógica: gestión de cantidades, totales y pedidos
+│   ├── types/                   # parcial1: Definición de interfaces y tipos globales
+│   │   ├── product.ts           # parcial1: Interfaces Product y CartItem
+│   │   ├── categoria.ts         # parcial1: Interface ICategoria
+│   │   └── user.ts              # tp4: Interfaces IUser y Rol
 │   └── utils/                   # Funciones auxiliares y lógica reutilizable
-│       ├── auth.ts              # Verificación de rol, sesión y permisos
-│       ├── localStorage.ts      # Persistencia de datos (Carrito, Token, Usuario)
+│       ├── auth.ts              # tp4: Verificación de rol, sesión y permisos
+│       ├── localStorage.ts      # parcial1: Persistencia de datos (Carrito, Token, Usuario)
 │       └── navigate.ts          # Centralización de rutas y redirecciones
 ├── package.json                 # Scripts y dependencias del proyecto
 └── README.md                    # Documentación principal```
