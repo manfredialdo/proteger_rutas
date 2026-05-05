@@ -9,14 +9,13 @@ const inputBusqueda = document.getElementById("input-busqueda") as HTMLInputElem
 
 
 /**
- * Crea un elemento de lista (li) para el menú de categorías y lo devuelve
- * @param id Identificador único de la categoría
- * @param nombre Nombre de la categoría
- * @returns Un elemento de lista (li) para el menú de categorías
+ * MENU CATEGORIAS
+ * Crea un elemento de lista (li) y un enlace (a)
  *
- * Crea un elemento de lista (li) para el menú de categorías y lo devuelve
  */
-const crearItemCategoria = (id: string, nombre: string): HTMLLIElement => {
+// 1. Crea un elemento de lista (li)
+// 2. Crea un enlace (a)
+ const crearItemCategoria = (id: string, nombre: string): HTMLLIElement => {
     const li = document.createElement("li");    // Crea un elemento de lista (li)
     const a = document.createElement("a");      // Crea un enlace (a)
     
@@ -52,12 +51,14 @@ const cargarCategorias = (productos: IProduct[]): void => {
 };
 
 /**
+ * CREAR TARJETA PRODUCTOS
  * Renderiza las tarjetas de productos en el DOM
  * Crea el elemento HTML de una tarjeta de producto y lo devuelve
  */
 const crearTarjeta = (p: IProduct): HTMLElement => {
     const tarjeta = document.createElement("article");
     tarjeta.className = "tarjeta";
+    console.log(`Renderizando tarjeta: ${p.nombre} | Imagen: /${p.imagen}`);
 
     // Estructura base (HTML estático)
     tarjeta.innerHTML = `
@@ -84,6 +85,7 @@ const crearTarjeta = (p: IProduct): HTMLElement => {
 };
 
 /**
+ * MOSTRAR MENU
  * Renderiza los productos en el DOM
  * Renderiza todas las tarjetas en el contenedor principal
  */
@@ -97,43 +99,59 @@ const mostrarMenu = (datos: IProduct[]): void => {
     contenedor.replaceChildren(...datos.map(crearTarjeta));
 };
 
-// --- LOGICA PARA EL BOTON AGREGAR ---
-// --- DELEGACIÓN DE EVENTOS (CLICK BOTN AGREGAR) ---
+/**
+ * EVENTOS: DELEGACIÓN DE CLIC (CARRITO Y FILTROS)
+ */
 document.addEventListener("click", (e: MouseEvent) => {
     const el = e.target as HTMLElement;
 
-    // 1. Lógica para Agregar al Carrito
+    // 1. GESTIÓN DEL CARRITO (AGREGAR PRODUCTO)
+    // Detección: Identifica si el clic ocurrió en un botón con la clase .btn-agregar o sus hijos.
     const btnAgregar = el.closest(".btn-agregar") as HTMLButtonElement;
+    
     if (btnAgregar) {
+        // Identificación: Captura el id del producto desde el atributo data-id del botón.
         const id = Number(btnAgregar.dataset.id);
+        
+        // Acción: Busca el producto en la base de datos (PRODUCTS)...
         const productoParaAgregar = PRODUCTS.find(p => p.id === id);
 
         if (productoParaAgregar) {
+            // ...lo añade al localStorage...
             agregarProductoAlCarrito(productoParaAgregar);
             const item = getCarrito().find(i => i.id === id);
 
             if (item) {
+                // ...y muestra por consola la actualización (nombre, cantidad y total acumulado).
                 console.log(`Producto: ${item.nombre} | Cantidad: ${item.cantidad} | Total: $${item.total}`);
             }
         }
         return; 
     }
     
-    // 2. Lógica para Filtros de Categorías
+    // 2. FILTRO DE CATEGORÍAS
+    // Detección: Identifica si el clic ocurrió en un enlace (<a>) del menú de categorías.
     const enlaceFiltro = el.closest("a"); 
+    
+    // Procesamiento: Obtiene el id de la categoría desde el data-id.
     const filtroId = enlaceFiltro?.dataset.id;
 
     if (enlaceFiltro && filtroId) {
         e.preventDefault();
         
+        // Filtrado: Si el ID es "todos", recupera la lista completa. De lo contrario, filtra por categoría.
         const filtrados = filtroId === "todos" 
             ? PRODUCTS 
             : PRODUCTS.filter(p => p.categorias.some(c => c.id.toString() === filtroId));
+
             
+        // Renderización: Actualiza la vista llamando a mostrarMenu() con los productos resultantes.
         mostrarMenu(filtrados);
         console.log(`Filtrando por: ${filtroId}`);
     }
 });
+
+
 
 
 // --- LÓGICA DE EL CAMPO DE BÚSQUEDA ---
@@ -146,6 +164,7 @@ formBusqueda?.addEventListener("input", (e) => {
     const resultados = PRODUCTS.filter(p => 
         p.nombre.toLowerCase().includes(busqueda)
     );
+    console.log(`Buscando: "${busqueda}" | Coincidencias: ${resultados.length}`);
 
     const contenedor = document.getElementById("contenedor-productos");
     if (!contenedor) return;
@@ -156,12 +175,12 @@ formBusqueda?.addEventListener("input", (e) => {
         // Si no hay resultados, limpiar y mostrar mensaje
         contenedor.replaceChildren();
         const mensaje = document.createElement("p");
-        mensaje.className = "tarjeta-descripcion"; // Usamos tus clases de CSS
+        mensaje.className = "tarjeta-descripcion"; // Usamos las clases de CSS del tp3
         mensaje.textContent = `No se encontraron productos que coincidan con "${busqueda}"`;
         contenedor.append(mensaje);
     }
 });
-
+console.table(PRODUCTS);
 // Inicialización
 cargarCategorias(PRODUCTS);
 mostrarMenu(PRODUCTS);
